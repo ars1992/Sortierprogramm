@@ -27,17 +27,17 @@ class Conf:
         print("3 - Aktuelle conf anzeigen")
         auswahl = input("Deine Wahl: ")
         if auswahl == "1":
-            self.__conf_erstellen_quellordner("quellordner")
+            self.__conf_erstellen_pfade("quellordner")
         if auswahl == "2":
-            self.__conf_erstellen_quellordner("zielordner")
+            self.__conf_erstellen_pfade("zielordner")
         if auswahl == "3":
             self.__aktuelle_conf_anzeigen()
 
 
-    def __conf_erstellen_quellordner(self, ordner):
-        pfad_quellordner = input(f"Pfad des {ordner.capitalize()}: ")
+    def __conf_erstellen_pfade(self, ordner):
+        pfad_ordner = input(f"Pfad des {ordner.capitalize()}: ")
         aktuelle_daten = self.__json_daten_laden_lesen()
-        aktuelle_daten[0][ordner].append(pfad_quellordner)
+        aktuelle_daten[0][ordner].append(pfad_ordner)
         with open(self.__pfad, "w") as file:
             print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
 
