@@ -1,6 +1,7 @@
 from Conf import *
 
 
+
 print(f"Hi schön das du da bist")
 print(f"Was möchtest du tun?")
 print(f"1 - Dateien einsortieren")
@@ -16,7 +17,7 @@ elif auswahl == "2":
 
 
 
-
+#Conf.json_zurück_setzen()
 
 
 
