@@ -1,6 +1,10 @@
 from Conf import *
 
-#Conf.json_zurück_setzen()
+Conf.json_zurück_setzen()
+
+conf = Conf()
+conf.conf_daten_aktuelle_pfade("zielordner")
+conf.conf_daten_aktuelle_pfade("quellordner")
 
 print(f"Hi schön das du da bist")
 print(f"Was möchtest du tun?")
