@@ -11,7 +11,8 @@ if auswahl == "1":
     #TODO
     print("Dateien wurden Einsortiert")
 elif auswahl == "2":
-    conf = Conf(r"C:\Users\aless\PycharmProjects\Sortierprogramm\.conf\conf.json")
+    conf = Conf()
+    conf.auswahl_einstellungen()
 
 
 
