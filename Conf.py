@@ -3,9 +3,12 @@ class Conf:
     def __init__(self):
         self.__pfad = ".conf/conf.json"
 
-    def __aktuelle_conf_anzeigen(self):
+    def __json_daten_laden(self):
         with open(self.__pfad, "r") as file:
             daten = json.load(file)
+        return daten
+    def __aktuelle_conf_anzeigen(self):
+        daten = self.__json_daten_laden()
         print(daten)
         print("Der aktuelle Quellordner ist:")
         for i in daten[0]["quellordner"]:
