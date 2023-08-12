@@ -5,22 +5,22 @@ from Conf import Conf
 
 class Sortierer:
     def __init__(self):
-        self.conf = Conf()
-        self.pfad = self.conf.get_pfad()
-        self.quellordner = self.conf.conf_daten_aktuelle_pfade("quellordner")
-        self.zielordner = self.conf.conf_daten_aktuelle_pfade("zielordner")
+        self.__conf = Conf()
+        self.__pfad = self.__conf.get_pfad()
+        self.__quellordner = self.__conf.conf_daten_aktuelle_pfade("quellordner")
+        self.__zielordner = self.__conf.conf_daten_aktuelle_pfade("zielordner")
 
-    def pfad_erstellen(self, dateiname="", pfad=""):
+    def __pfad_erstellen(self, dateiname="", pfad=""):
         return f"{pfad}\\{dateiname}"
 
-    def datei_verschieben(self, dateiname="", ordner=""):
+    def __datei_verschieben(self, dateiname="", ordner="", index=0):
         if dateiname.split("_")[1].upper() == ordner.upper():
-            shutil.move(self.pfad_erstellen(dateiname=dateiname, pfad=self.quellordner[0]),
-                        self.pfad_erstellen(dateiname=dateiname, pfad=self.zielordner[ordner]))
+            shutil.move(self.__pfad_erstellen(dateiname=dateiname, pfad=self.__quellordner[index]),
+                        self.__pfad_erstellen(dateiname=dateiname, pfad=self.__zielordner[ordner]))
 
     def zielordner_durchlaufen_und_einsortieren(self):
-        for i in range(0, len(self.quellordner)):
-            files = os.listdir(self.quellordner[0])
+        for i in range(0, len(self.__quellordner)):
+            files = os.listdir(self.__quellordner[i])
             for dateiname in files:
-                for ordner, pfad in self.zielordner.items():
-                    self.datei_verschieben(dateiname=dateiname, ordner=pfad.split("\\")[-1])
+                for ordner, pfad in self.__zielordner.items():
+                    self.__datei_verschieben(dateiname=dateiname, ordner=pfad.split("\\")[-1], index=i)
