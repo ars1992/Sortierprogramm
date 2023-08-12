@@ -41,7 +41,6 @@ class Conf:
         name_unterordner = input("Wie soll der unterordner heißen: ").upper()
         conf_zielordner = self.conf_daten_aktuelle_pfade("zielordner")
         conf_unterordner = self.conf_daten_aktuelle_pfade("unterordner")
-        print(conf_unterordner, conf_zielordner)
         if name_unterordner not in conf_unterordner:
             aktuelle_daten = self.__json_daten_laden_lesen()
             aktuelle_daten[0]["unterordner"].append(name_unterordner)
