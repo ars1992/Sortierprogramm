@@ -50,7 +50,6 @@ class Conf:
 
     def conf_daten_aktuelle_pfade(self, ordner):
         daten = self.__json_daten_laden_lesen()
-        print(daten[0][ordner])
         return daten[0][ordner]
 
     def get_pfad(self):
