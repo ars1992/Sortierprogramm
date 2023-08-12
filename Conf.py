@@ -1,4 +1,5 @@
 import json
+import os
 
 
 class Conf:
@@ -35,17 +36,38 @@ class Conf:
         with open(self.__pfad, "w") as file:
             print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
 
+
+    def __conf_unterordner_erstellen(self):
+        name_unterordner = input("Wie soll der unterordner heißen: ").upper()
+        conf_zielordner = self.conf_daten_aktuelle_pfade("zielordner")
+        conf_unterordner = self.conf_daten_aktuelle_pfade("unterordner")
+        print(conf_unterordner, conf_zielordner)
+        if name_unterordner not in conf_unterordner:
+            aktuelle_daten = self.__json_daten_laden_lesen()
+            aktuelle_daten[0]["unterordner"].append(name_unterordner)
+            with open(self.__pfad, "w") as file:
+                print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
+            for pfad in conf_zielordner.values():
+                os.mkdir(f"{pfad}\\{name_unterordner}")
+        else:
+            print("Ordner bereits vorhanden.")
+
+
+
     def auswahl_einstellungen(self):
         print("Was möchtest du tun?")
         print("1 - Neuer Quellordner anlegen")
         print("2 - Neuer Zielordner anlegen")
-        print("3 - Aktuelle conf anzeigen")
+        print("3 - Neuer Unterordner anlegen und erstellen")
+        print("4 - Aktuelle conf anzeigen")
         auswahl = input("Deine Wahl: ")
         if auswahl == "1":
             self.__conf_erstellen_pfade_quellordner()
         if auswahl == "2":
             self.__conf_erstellen_pfade_zielordner()
         if auswahl == "3":
+            self.__conf_unterordner_erstellen()
+        if auswahl == "4":
             self.__aktuelle_conf_anzeigen()
 
     def conf_daten_aktuelle_pfade(self, ordner):
@@ -58,6 +80,6 @@ class Conf:
     # Testmethoden
     @staticmethod
     def json_zurück_setzen():
-        daten = [{"quellordner": [], "zielordner": {}}]
+        daten = [{"quellordner": [], "zielordner": {}, "unterordner": []}]
         with open(".conf/conf.json", "w") as file:
             print(json.dumps(daten, indent=2, ensure_ascii=False), file=file)

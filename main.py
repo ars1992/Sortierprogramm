@@ -4,8 +4,6 @@ from Sortierer import Sortierer
 #Conf.json_zurück_setzen()
 
 
-sort = Sortierer()
-sort.zielordner_durchlaufen_und_einsortieren()
 
 
 
@@ -26,7 +24,7 @@ def terminal():
         conf.auswahl_einstellungen()
 
 
-
+terminal()
 
 
 

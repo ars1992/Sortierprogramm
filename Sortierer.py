@@ -22,7 +22,7 @@ class Sortierer:
             print(f"Felerhafterdateiname von: {dateiname}")
             eingabe = input("Möchtest du die Datei umbenennen (j/n): ")
             if eingabe.upper() == "J":
-                self.datei_umbenennen(dateiname=dateiname)
+                self.__datei_umbenennen(dateiname=dateiname)
 
     def zielordner_durchlaufen_und_einsortieren(self):
         for i in range(0, len(self.__quellordner)):
@@ -31,7 +31,7 @@ class Sortierer:
                 for ordner, pfad in self.__zielordner.items():
                     self.__datei_verschieben(dateiname=dateiname, ordner=pfad.split("\\")[-1], index=i)
 
-    def datei_umbenennen(self, dateiname=None, index=0):
+    def __datei_umbenennen(self, dateiname=None, index=0):
         if dateiname:
             print(f"Aktuellername: {dateiname}")
             neuer_dateiname = input("Neuer Dateiname: ")
