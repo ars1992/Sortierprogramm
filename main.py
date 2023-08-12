@@ -4,17 +4,9 @@ from Sortierer import Sortierer
 #Conf.json_zurück_setzen()
 
 
-
-conf = Conf()
 sort = Sortierer()
-conf.conf_daten_aktuelle_pfade("zielordner")
-conf.conf_daten_aktuelle_pfade("quellordner")
-#conf.auswahl_einstellungen()
-x = sort.pfad_erstellen(dateiname="23.09.08_DE_IN_hallo.txt", pfad=sort.quellordner[0])
-y = sort.pfad_erstellen(dateiname="23.09.08_DE_IN_hallo.txt", pfad=sort.zielordner["DE"])
-print(x)
-print(y)
-sort.datei_verschieben(dateiname="23.09.08_DE_IN_hallo.txt", ordner="DE")
+sort.zielordner_durchlaufen_und_einsortieren()
+
 
 
 
@@ -26,7 +18,8 @@ def terminal():
     auswahl = input("Deine Wahl: ")
 
     if auswahl == "1":
-        # TODO
+        sort = Sortierer()
+        sort.zielordner_durchlaufen_und_einsortieren()
         print("Dateien wurden Einsortiert")
     elif auswahl == "2":
         conf = Conf()
@@ -46,32 +39,32 @@ import shutil, os
 source = r"C:\Users\aless\Downloads\Schule"
 
 # Zielordner
-bsL = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\BS\BS-L"
-bsW = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\BS\BS-W"
-bew = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\BEW"
-ctKts = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\CT.KTS"
-db = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\DB"
-dbk = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\DBK"
-rew = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\REW"
-itsi = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\ITSI"
-java = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\JAVA"
-lo = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\LO"
-web = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\WEB"
-eng = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\ENG"
-etec = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\ETEC"
-ebus = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\EBUS"
-swt = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\SWT"
-net = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\NET"
-wiso = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\WISO"
-algemein = r"C:\Users\aless\OneDrive\Dokumente\SRH\Allgemein"
-
-dic_feacher = {"BS-L": bsL, "BS-W": bsW, "BEW": bew,
-               "CT.KTS": ctKts, "DB": db, "ETEC": etec,
-               "REW": rew, "DBK": dbk, "ITSI": itsi,
-               "JAVA": java, "LO": lo, "WEB": web,
-               "ENG": eng, "SWT": swt, "NET": net,
-               "WISO": wiso, "ALLGEMEIN": algemein,
-               "EBUS": ebus}
+# bsL = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\BS\BS-L"
+# bsW = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\BS\BS-W"
+# bew = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\BEW"
+# ctKts = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\CT.KTS"
+# db = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\DB"
+# dbk = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\DBK"
+# rew = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\REW"
+# itsi = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\ITSI"
+# java = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\JAVA"
+# lo = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\LO"
+# web = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\WEB"
+# eng = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\ENG"
+# etec = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\ETEC"
+# ebus = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\EBUS"
+# swt = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\SWT"
+# net = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\NET"
+# wiso = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\WISO"
+# algemein = r"C:\Users\aless\OneDrive\Dokumente\SRH\Allgemein"
+#
+# dic_feacher = {"BS-L": bsL, "BS-W": bsW, "BEW": bew,
+#                "CT.KTS": ctKts, "DB": db, "ETEC": etec,
+#                "REW": rew, "DBK": dbk, "ITSI": itsi,
+#                "JAVA": java, "LO": lo, "WEB": web,
+#                "ENG": eng, "SWT": swt, "NET": net,
+#                "WISO": wiso, "ALLGEMEIN": algemein,
+#                "EBUS": ebus}
 
 # Dateinamen
 # Datum_Fach_Quelle_Inhalt.pdf
