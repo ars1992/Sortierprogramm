@@ -1,5 +1,7 @@
 import json
 import os
+import term
+
 
 
 class Conf:
@@ -18,8 +20,9 @@ class Conf:
         for i in daten[0]["quellordner"]:
             print(i)
         print("Der aktuelle Zielordner ist:")
-        for i in daten[0]["zielordner"]:
-            print(i)
+        for i, v in daten[0]["zielordner"].items():
+            print(i, v)
+        print()
 
     def __conf_erstellen_pfade_quellordner(self):
         pfad_ordner = input("Pfad des Quellordner: ")
@@ -36,7 +39,6 @@ class Conf:
         with open(self.__pfad, "w") as file:
             print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
 
-
     def __conf_unterordner_erstellen(self):
         name_unterordner = input("Wie soll der unterordner heißen: ").upper()
         conf_zielordner = self.conf_daten_aktuelle_pfade("zielordner")
@@ -51,23 +53,28 @@ class Conf:
         else:
             print("Ordner bereits vorhanden.")
 
-
-
     def auswahl_einstellungen(self):
-        print("Was möchtest du tun?")
-        print("1 - Neuer Quellordner anlegen")
-        print("2 - Neuer Zielordner anlegen")
-        print("3 - Neuer Unterordner anlegen und erstellen")
-        print("4 - Aktuelle conf anzeigen")
-        auswahl = input("Deine Wahl: ")
-        if auswahl == "1":
-            self.__conf_erstellen_pfade_quellordner()
-        if auswahl == "2":
-            self.__conf_erstellen_pfade_zielordner()
-        if auswahl == "3":
-            self.__conf_unterordner_erstellen()
-        if auswahl == "4":
-            self.__aktuelle_conf_anzeigen()
+        while True:
+            print("Was möchtest du tun?")
+            print("Mit Enter beenden!")
+            print("1 - Neuer Quellordner anlegen")
+            print("2 - Neuer Zielordner anlegen")
+            print("3 - Neuer Unterordner anlegen und erstellen")
+            print("4 - Aktuelle conf anzeigen")
+            print("5 - Zurück")
+            auswahl = input("Deine Wahl: ")
+            if auswahl == "1":
+                self.__conf_erstellen_pfade_quellordner()
+            if auswahl == "2":
+                self.__conf_erstellen_pfade_zielordner()
+            if auswahl == "3":
+                self.__conf_unterordner_erstellen()
+            if auswahl == "4":
+                self.__aktuelle_conf_anzeigen()
+            if auswahl == "5":
+                term.terminal()
+            if auswahl == "":
+                return
 
     def conf_daten_aktuelle_pfade(self, ordner):
         daten = self.__json_daten_laden_lesen()
