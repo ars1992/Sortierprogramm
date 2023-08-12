@@ -25,33 +25,42 @@ class Conf:
         print()
 
     def __conf_erstellen_pfade_quellordner(self):
-        pfad_ordner = input("Pfad des Quellordner: ")
-        aktuelle_daten = self.__json_daten_laden_lesen()
-        aktuelle_daten[0]["quellordner"].append(pfad_ordner)
-        with open(self.__pfad, "w") as file:
-            print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
-
-    def __conf_erstellen_pfade_zielordner(self):
-        pfad_ordner = input(f"Pfad des Zielordner: ")
-        ordnername = pfad_ordner.split("\\")[-1]
-        aktuelle_daten = self.__json_daten_laden_lesen()
-        aktuelle_daten[0]["zielordner"][ordnername] = pfad_ordner
-        with open(self.__pfad, "w") as file:
-            print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
-
-    def __conf_unterordner_erstellen(self):
-        name_unterordner = input("Wie soll der unterordner heißen: ").upper()
-        conf_zielordner = self.conf_daten_aktuelle_pfade("zielordner")
-        conf_unterordner = self.conf_daten_aktuelle_pfade("unterordner")
-        if name_unterordner not in conf_unterordner:
+        while True:
+            pfad_ordner = input("Pfad des Quellordner: ")
+            if pfad_ordner == "":
+                return 
             aktuelle_daten = self.__json_daten_laden_lesen()
-            aktuelle_daten[0]["unterordner"].append(name_unterordner)
+            aktuelle_daten[0]["quellordner"].append(pfad_ordner)
             with open(self.__pfad, "w") as file:
                 print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
-            for pfad in conf_zielordner.values():
-                os.mkdir(f"{pfad}\\{name_unterordner}")
-        else:
-            print("Ordner bereits vorhanden.")
+
+    def __conf_erstellen_pfade_zielordner(self):
+        while True:
+            pfad_ordner = input(f"Pfad des Zielordner: ")
+            if pfad_ordner == "":
+                return
+            ordnername = pfad_ordner.split("\\")[-1]
+            aktuelle_daten = self.__json_daten_laden_lesen()
+            aktuelle_daten[0]["zielordner"][ordnername] = pfad_ordner
+            with open(self.__pfad, "w") as file:
+                print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
+
+    def __conf_unterordner_erstellen(self):
+        while True:
+            name_unterordner = input("Wie soll der unterordner heißen: ").upper()
+            conf_zielordner = self.conf_daten_aktuelle_pfade("zielordner")
+            conf_unterordner = self.conf_daten_aktuelle_pfade("unterordner")
+            if name_unterordner == "":
+                return
+            if name_unterordner not in conf_unterordner:
+                aktuelle_daten = self.__json_daten_laden_lesen()
+                aktuelle_daten[0]["unterordner"].append(name_unterordner)
+                with open(self.__pfad, "w") as file:
+                    print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
+                for pfad in conf_zielordner.values():
+                    os.mkdir(f"{pfad}\\{name_unterordner}")
+            else:
+                print("Ordner bereits vorhanden.")
 
     def auswahl_einstellungen(self):
         while True:
