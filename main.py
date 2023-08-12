@@ -1,43 +1,44 @@
 from Conf import *
+from Sortierer import Sortierer
 
-Conf.json_zurück_setzen()
+#Conf.json_zurück_setzen()
 
-conf = Conf()
-conf.conf_daten_aktuelle_pfade("zielordner")
-conf.conf_daten_aktuelle_pfade("quellordner")
 
-print(f"Hi schön das du da bist")
-print(f"Was möchtest du tun?")
-print(f"1 - Dateien einsortieren")
-print(f"2 - Einstellungen")
-auswahl = input("Deine Wahl: ")
-
-if auswahl == "1":
-    #TODO
-    print("Dateien wurden Einsortiert")
-elif auswahl == "2":
-    conf = Conf()
-    conf.auswahl_einstellungen()
+sort = Sortierer()
+sort.zielordner_durchlaufen_und_einsortieren()
 
 
 
 
+def terminal():
+    print(f"Hi schön das du da bist")
+    print(f"Was möchtest du tun?")
+    print(f"1 - Dateien einsortieren")
+    print(f"2 - Einstellungen")
+    auswahl = input("Deine Wahl: ")
 
-
-
-
+    if auswahl == "1":
+        sort = Sortierer()
+        sort.zielordner_durchlaufen_und_einsortieren()
+        print("Dateien wurden Einsortiert")
+    elif auswahl == "2":
+        conf = Conf()
+        conf.auswahl_einstellungen()
 
 
 
 
 
 
-# import shutil, os
-#
-# # Quellordner
-# source = r"C:\Users\aless\Downloads\Schule"
-#
-# # Zielordner
+
+
+
+import shutil, os
+
+# Quellordner
+source = r"C:\Users\aless\Downloads\Schule"
+
+# Zielordner
 # bsL = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\BS\BS-L"
 # bsW = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\BS\BS-W"
 # bew = r"C:\Users\aless\OneDrive\Dokumente\SRH\FIA1\BEW"
@@ -64,21 +65,21 @@ elif auswahl == "2":
 #                "ENG": eng, "SWT": swt, "NET": net,
 #                "WISO": wiso, "ALLGEMEIN": algemein,
 #                "EBUS": ebus}
-#
-# # Dateinamen
-# # Datum_Fach_Quelle_Inhalt.pdf
-# # Quellen
-# # präsentation - pr
-# # bild -> bi
-# # onenote -> on
-# # moodle -> mo
-# # inet -> in !!! zusatz Infos -> in
-# # papier -> pa
-# # zusammenfasung -> zu -> kl
-# # mindmap -> mi -> kl
-# # klausur -> kl
-#
-#
+
+# Dateinamen
+# Datum_Fach_Quelle_Inhalt.pdf
+# Quellen
+# präsentation - pr
+# bild -> bi
+# onenote -> on
+# moodle -> mo
+# inet -> in !!! zusatz Infos -> in
+# papier -> pa
+# zusammenfasung -> zu -> kl
+# mindmap -> mi -> kl
+# klausur -> kl
+
+
 # def fachwahl(fach="", pfad=""):
 #     try:
 #         if datei_split[1].upper() == fach: # Fach abfragen
