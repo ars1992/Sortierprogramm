@@ -3,7 +3,6 @@ import os
 import term
 
 
-
 class Conf:
     def __init__(self):
         self.__pfad = ".conf/conf.json"
@@ -22,13 +21,15 @@ class Conf:
         print("Der aktuelle Zielordner ist:")
         for i, v in daten[0]["zielordner"].items():
             print(i, v)
-        print()
+        print("Die aktuellen Unterordner sind:")
+        for i in daten[0]["unterordner"]:
+            print(i)
 
     def __conf_erstellen_pfade_quellordner(self):
         while True:
             pfad_ordner = input("Pfad des Quellordner: ")
             if pfad_ordner == "":
-                return 
+                return
             aktuelle_daten = self.__json_daten_laden_lesen()
             aktuelle_daten[0]["quellordner"].append(pfad_ordner)
             with open(self.__pfad, "w") as file:
@@ -88,6 +89,12 @@ class Conf:
     def conf_daten_aktuelle_pfade(self, ordner):
         daten = self.__json_daten_laden_lesen()
         return daten[0][ordner]
+
+    def conf_vorhanden(self):
+        if len(self.conf_daten_aktuelle_pfade("quellordner")) <= 0 and \
+                len(self.conf_daten_aktuelle_pfade("zielordner")) <= 0:
+            self.__aktuelle_conf_anzeigen()
+            return False
 
     def get_pfad(self):
         return self.__pfad

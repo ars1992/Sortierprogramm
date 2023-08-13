@@ -10,6 +10,9 @@ def hilfe():
     print("2 - Einstellungen")
 
 def terminal():
+    conf = Conf()
+    if not conf.conf_vorhanden():
+        conf.auswahl_einstellungen()
     hilfe()
     while True:
         print("h - Hilfe")
@@ -19,7 +22,6 @@ def terminal():
             sort.zielordner_durchlaufen_und_einsortieren()
             print("Dateien wurden Einsortiert")
         if auswahl == "2":
-            conf = Conf()
             conf.auswahl_einstellungen()
         if auswahl.upper() == "H":
             hilfe()
