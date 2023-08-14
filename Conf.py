@@ -14,7 +14,6 @@ class Conf:
 
     def __aktuelle_conf_anzeigen(self):
         daten = self.__json_daten_laden_lesen()
-        print(daten)
         print("Der aktuelle Quellordner ist:")
         for i in daten[0]["quellordner"]:
             print(i)
@@ -63,15 +62,42 @@ class Conf:
             else:
                 print("Ordner bereits vorhanden.")
 
+    def __conf_bestehendes_verzeichnis_einbinden(self):
+        verzeichnis = input("Pfad zum Stammordner: ")
+        ordner = os.listdir(verzeichnis)
+        aktuelle_daten = self.__json_daten_laden_lesen()
+        for i in ordner:
+            aktuelle_daten[0]["zielordner"][i] = f"{verzeichnis}\\{i}"
+        for i in self.__unterordner_auflisten(verzeichnis):
+            aktuelle_daten[0]["unterordner"].append(i)
+        with open(self.__pfad, "w") as file:
+            print(json.dumps(aktuelle_daten, indent=1, ensure_ascii=False), file=file)
+        for i in aktuelle_daten[0]["unterordner"]:
+            for j in aktuelle_daten[0]["zielordner"].values():
+                try:
+                    os.mkdir(f"{j}\\{i}")
+                except FileExistsError:
+                    continue
+
+    def __unterordner_auflisten(self, pfad=""):
+        unterordner = set()
+        for i in os.listdir(pfad):
+            for j in os.listdir(f"{pfad}\\{i}"):
+                if "." not in j:
+                    unterordner.add(j)
+        return unterordner
+
     def auswahl_einstellungen(self):
         while True:
+            print("---- Menue 2 ----")
             print("Was möchtest du tun?")
             print("Mit Enter beenden!")
             print("1 - Neuer Quellordner anlegen")
             print("2 - Neuer Zielordner anlegen")
             print("3 - Neuer Unterordner anlegen und erstellen")
-            print("4 - Aktuelle conf anzeigen")
-            print("5 - Zurück")
+            print("4 - Bestehendes Verzeichnis als Ziel einbinden")
+            print("5 - Aktuelle conf anzeigen")
+            print("6 - Zurück")
             auswahl = input("Deine Wahl: ")
             if auswahl == "1":
                 self.__conf_erstellen_pfade_quellordner()
@@ -80,8 +106,10 @@ class Conf:
             if auswahl == "3":
                 self.__conf_unterordner_erstellen()
             if auswahl == "4":
-                self.__aktuelle_conf_anzeigen()
+                self.__conf_bestehendes_verzeichnis_einbinden()
             if auswahl == "5":
+                self.__aktuelle_conf_anzeigen()
+            if auswahl == "6":
                 term.terminal()
             if auswahl == "":
                 return
@@ -95,6 +123,7 @@ class Conf:
                 len(self.conf_daten_aktuelle_pfade("zielordner")) <= 0:
             self.__aktuelle_conf_anzeigen()
             return False
+        return True
 
     def get_pfad(self):
         return self.__pfad

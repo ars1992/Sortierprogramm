@@ -15,6 +15,7 @@ def terminal():
         conf.auswahl_einstellungen()
     hilfe()
     while True:
+        print("---- Menue 1 ----")
         print("h - Hilfe")
         auswahl = input("Deine Wahl: ")
         if auswahl == "1":
